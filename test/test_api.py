@@ -18,7 +18,7 @@ class PortfolioApiTests(unittest.TestCase):
         ]
 
     def call(self, args):
-        response = portfolio.handler(Request(args))
+        response = portfolio.portfolio_response(Request(args))
         return response['statusCode'], json.loads(response['body'])
 
     def test_limit_and_cursor(self):

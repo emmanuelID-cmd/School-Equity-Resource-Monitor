@@ -2,8 +2,8 @@
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlparse
 import json
-from api.portfolio import handler
-from api.portfolio_meta import handler as meta_handler
+from api.portfolio import portfolio_response
+from api.portfolio_meta import metadata_response
 
 
 class Handler(SimpleHTTPRequestHandler):
@@ -11,7 +11,7 @@ class Handler(SimpleHTTPRequestHandler):
         parsed = urlparse(self.path)
         if parsed.path in ('/api/portfolio', '/api/portfolio/meta'):
             request = type('Request', (), {'args': {key: values[-1] for key, values in parse_qs(parsed.query).items()}})()
-            result = meta_handler(request) if parsed.path.endswith('/meta') else handler(request)
+            result = metadata_response(request) if parsed.path.endswith('/meta') else portfolio_response(request)
             body = result['body'].encode()
             self.send_response(result['statusCode'])
             self.send_header('Content-Type', 'application/json')

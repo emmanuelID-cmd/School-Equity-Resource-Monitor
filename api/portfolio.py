@@ -7,6 +7,7 @@ import json
 import os
 import urllib.parse
 import urllib.request
+from http.server import BaseHTTPRequestHandler
 from pathlib import Path
 from src.data.normalize import API_URL, audit_rows
 
@@ -42,7 +43,7 @@ def _query(request):
     return {}
 
 
-def handler(request):
+def portfolio_response(request):
     try:
         query = _query(request)
         year = query.get('year', '')
@@ -83,3 +84,26 @@ def handler(request):
         return {'statusCode': 200, 'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'}, 'body': json.dumps({'schools': page, 'nextCursor': next_cursor, 'hasMore': next_cursor is not None})}
     except Exception as error:
         return {'statusCode': 502, 'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'}, 'body': json.dumps({'error': str(error)})}
+
+
+class handler(BaseHTTPRequestHandler):
+    """Vercel Python runtime adapter for the portfolio endpoint."""
+
+    def _respond(self, result):
+        body = result['body'].encode('utf-8')
+        self.send_response(result['statusCode'])
+        for name, value in result.get('headers', {}).items():
+            self.send_header(name, value)
+        self.send_header('Access-Control-Allow-Methods', 'GET, OPTIONS')
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type')
+        self.send_header('Content-Length', str(len(body)))
+        self.end_headers()
+        if self.command != 'HEAD':
+            self.wfile.write(body)
+
+    def do_GET(self):
+        query = {key: values[-1] for key, values in urllib.parse.parse_qs(urllib.parse.urlparse(self.path).query).items()}
+        self._respond(portfolio_response(type('Request', (), {'args': query})()))
+
+    def do_OPTIONS(self):
+        self._respond({'statusCode': 204, 'headers': {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'}, 'body': ''})
