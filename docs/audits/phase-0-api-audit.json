@@ -1,0 +1,15 @@
+{
+  "source": "https://data.cityofnewyork.us/resource/dnpx-dfnc.json",
+  "scope": "High School; 4-Year Graduation Rate and Percentage of Students with 90%+ Attendance metrics",
+  "fetchedRows": 68953,
+  "relevantRecords": 45373,
+  "matchedPairs": 15691,
+  "unmatchedPairs": 3020,
+  "warningCounts": {
+    "missing-value": 15397,
+    "small-denominator": 13621,
+    "unmatched-graduation": 3020
+  },
+  "years": ["2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"],
+  "demographics": ["All Students", "Asian", "Black", "Female", "Hispanic", "Male", "Multiracial", "Native American", "Native Hawaiian or Pacific Islander", "Neither Female nor Male", "White"]
+}
