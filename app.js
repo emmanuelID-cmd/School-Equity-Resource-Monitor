@@ -36,7 +36,7 @@ async function loadPage(reset = false, preserveSelection = false) {
 }
 
 async function loadMetadata() {
-  const response = await fetch('/api/portfolio/meta');
+  const response = await fetch('/api/portfolio_meta');
   if (!response.ok) throw Error(`Metadata API ${response.status}`);
   const metadata = await response.json();
   metadata.years.forEach((year) => $('year').insertAdjacentHTML('beforeend', `<option>${year}</option>`));

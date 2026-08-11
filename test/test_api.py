@@ -1,6 +1,7 @@
 import json
 import unittest
 from api import portfolio
+from api import portfolio_meta
 
 
 class Request:
@@ -41,6 +42,14 @@ class PortfolioApiTests(unittest.TestCase):
     def test_invalid_limit_returns_error(self):
         status, body = self.call({'limit': 'not-a-number'})
         self.assertEqual(status, 502); self.assertIn('error', body)
+
+    def test_metadata_response_has_filter_options(self):
+        response = portfolio_meta.metadata_response(Request({}))
+        self.assertEqual(response['statusCode'], 200)
+        body = json.loads(response['body'])
+        self.assertEqual(body['years'][0], '2015')
+        self.assertEqual(body['years'][-1], '2022')
+        self.assertIn('Bronx', body['boroughs'])
 
 
 if __name__ == '__main__': unittest.main()

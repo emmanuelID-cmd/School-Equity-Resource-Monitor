@@ -9,9 +9,10 @@ from api.portfolio_meta import metadata_response
 class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
         parsed = urlparse(self.path)
-        if parsed.path in ('/api/portfolio', '/api/portfolio/meta'):
+        if parsed.path in ('/api/portfolio', '/api/portfolio/meta', '/api/portfolio_meta'):
             request = type('Request', (), {'args': {key: values[-1] for key, values in parse_qs(parsed.query).items()}})()
-            result = metadata_response(request) if parsed.path.endswith('/meta') else portfolio_response(request)
+            metadata_path = parsed.path in ('/api/portfolio/meta', '/api/portfolio_meta')
+            result = metadata_response(request) if metadata_path else portfolio_response(request)
             body = result['body'].encode()
             self.send_response(result['statusCode'])
             self.send_header('Content-Type', 'application/json')
