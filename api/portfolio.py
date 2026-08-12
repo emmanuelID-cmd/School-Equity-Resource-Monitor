@@ -80,11 +80,12 @@ def portfolio_response(request):
             result = [school for school in result if not school['signals']]
         if gap_threshold:
             result = [school for school in result if any(e.get('gap', 0) >= gap_threshold and (e.get('denominator') or 0) >= 10 and (e.get('graduation') or {}).get('denominator', 0) >= 10 for e in school.get('evidence', []))]
+        total = len(result)
         if cursor:
             result = [school for school in result if f"{school['schoolYear']}|{school['dbn']}" > cursor]
         page = result[:limit]
         next_cursor = f"{page[-1]['schoolYear']}|{page[-1]['dbn']}" if len(result) > limit else None
-        return {'statusCode': 200, 'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'}, 'body': json.dumps({'schools': page, 'nextCursor': next_cursor, 'hasMore': next_cursor is not None})}
+        return {'statusCode': 200, 'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'}, 'body': json.dumps({'schools': page, 'total': total, 'nextCursor': next_cursor, 'hasMore': next_cursor is not None})}
     except Exception as error:
         return {'statusCode': 502, 'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'}, 'body': json.dumps({'error': str(error)})}
 

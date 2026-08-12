@@ -1,7 +1,7 @@
 import './shared-header.js';
 
 const initialCursor = new URLSearchParams(window.location.search).get('cursor');
-const state = { schools: [], selected: null, selectedSchool: null, cursor: initialCursor, hasMore: true, loading: false, gapThreshold: 'all' };
+const state = { schools: [], total: 0, selected: null, selectedSchool: null, cursor: initialCursor, hasMore: true, loading: false, gapThreshold: 'all' };
 const $ = (id) => document.getElementById(id);
 
 function queryParams() {
@@ -15,7 +15,7 @@ function queryParams() {
 
 async function loadPage(reset = false, preserveSelection = false) {
   if (state.loading || (!state.hasMore && !reset)) return;
-  if (reset) { state.schools = []; state.cursor = null; state.hasMore = true; if (!preserveSelection) { state.selected = null; state.selectedSchool = null; } history.replaceState({}, '', window.location.pathname); }
+  if (reset) { state.schools = []; state.total = 0; state.cursor = null; state.hasMore = true; if (!preserveSelection) { state.selected = null; state.selectedSchool = null; } history.replaceState({}, '', window.location.pathname); }
   state.loading = true;
   $('status').textContent = `Loading schools… ${state.schools.length.toLocaleString()} loaded`;
   try {
@@ -24,13 +24,14 @@ async function loadPage(reset = false, preserveSelection = false) {
     if (!response.ok) throw Error(`API ${response.status}`);
     const page = await response.json();
     state.schools.push(...(page.schools || []));
+    state.total = Number(page.total || 0);
     state.cursor = page.nextCursor;
     state.hasMore = Boolean(page.hasMore);
     const url = new URL(window.location.href);
     if (pageCursor) url.searchParams.set('cursor', pageCursor); else url.searchParams.delete('cursor');
     history.replaceState({}, '', url);
     render();
-    $('status').textContent = `${state.schools.length.toLocaleString()} schools loaded; review signals are observational.`;
+    $('status').textContent = `${state.schools.length.toLocaleString()} of ${state.total.toLocaleString()} schools; review signals are observational.`;
   } catch (error) {
     $('status').textContent = `Unable to load portfolio data: ${error.message}`;
     if (reset) $('queue').innerHTML = '<p class="empty">Try again when the portfolio API is available.</p>';
@@ -76,7 +77,7 @@ function filteredSchools() {
 
 function render() {
   const schools = filteredSchools();
-  $('count').textContent = `${schools.length} schools`;
+  $('count').textContent = `${schools.length.toLocaleString()} of ${state.total.toLocaleString()} schools`;
   $('queue').style.maxHeight = '620px';
   $('queue').style.overflowY = 'auto';
   if (schools.length && !state.selected) {
