@@ -20,7 +20,9 @@ def public_config():
                 values[key.strip()] = value.strip().strip('"').strip("'")
     except OSError:
         pass
-    return {'supabaseUrl': values.get('SUPABASE_URL', ''), 'publishableKey': values.get('SUPABASE_PUBLISHABLE_KEY', '')}
+    supabase_url = os.environ.get('SUPABASE_URL') or values.get('SUPABASE_URL', '')
+    publishable_key = os.environ.get('SUPABASE_PUBLISHABLE_KEY') or values.get('SUPABASE_PUBLISHABLE_KEY', '')
+    return {'supabaseUrl': supabase_url, 'publishableKey': publishable_key}
 
 
 class Handler(SimpleHTTPRequestHandler):
