@@ -3,6 +3,8 @@ import json
 from http.server import BaseHTTPRequestHandler
 from .portfolio import _load_pairs
 
+CANONICAL_DEMOGRAPHICS = ['All Students', 'Asian', 'Black', 'Hispanic', 'Native American', 'Native Hawaiian or Pacific Islander', 'Multiracial', 'White', 'Female', 'Male', 'Neither Female nor Male']
+
 
 def profile_response(request):
     query = getattr(request, 'args', {}) or {}
@@ -16,7 +18,9 @@ def profile_response(request):
     first = pairs[0]
     demographics = []
     warnings = set()
-    for pair in pairs:
+    by_demographic = {pair.get('demographic'): pair for pair in pairs}
+    for demographic in CANONICAL_DEMOGRAPHICS:
+        pair = by_demographic.get(demographic, {'demographic': demographic, 'value': None, 'denominator': None, 'graduation': None})
         graduation = pair.get('graduation') or {}
         attendance = pair.get('value')
         if attendance is None: warnings.add('Attendance value missing or suppressed')
@@ -24,7 +28,8 @@ def profile_response(request):
         if not graduation: warnings.add('Graduation record missing for this school year')
         elif graduation.get('value') is None: warnings.add('Graduation value missing or suppressed')
         elif graduation.get('denominator') is not None and graduation['denominator'] < 10: warnings.add('Graduation denominator below 10')
-        demographics.append({'demographic': pair.get('demographic'), 'attendance90': attendance, 'graduation4': graduation.get('value'), 'attendanceDenominator': pair.get('denominator'), 'graduationDenominator': graduation.get('denominator'), 'gap': abs(graduation['value'] - attendance) if attendance is not None and graduation.get('value') is not None else None})
+        if demographic not in by_demographic: warnings.add(f'{demographic} demographic record unavailable for this school year')
+        demographics.append({'demographic': demographic, 'attendance90': attendance, 'graduation4': graduation.get('value'), 'attendanceDenominator': pair.get('denominator'), 'graduationDenominator': graduation.get('denominator'), 'gap': abs(graduation['value'] - attendance) if attendance is not None and graduation.get('value') is not None else None})
     body = {'dbn': dbn, 'schoolName': first.get('schoolName'), 'borough': first.get('borough'), 'schoolYear': school_year, 'demographics': demographics, 'matchedRecordCount': sum(1 for item in demographics if item['gap'] is not None), 'warnings': sorted(warnings)}
     return {'statusCode': 200, 'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'}, 'body': json.dumps(body)}
 

@@ -58,7 +58,7 @@ class PortfolioApiTests(unittest.TestCase):
         self.assertEqual(response['statusCode'], 200)
         body = json.loads(response['body'])
         self.assertEqual(body['dbn'], '01M001')
-        self.assertEqual(body['demographics'][0]['demographic'], 'Female')
+        self.assertIn('Female', {row['demographic'] for row in body['demographics']})
 
     def test_profile_requires_dbn_and_year(self):
         response = profile.profile_response(Request({'dbn': '01M001'}))
@@ -68,6 +68,16 @@ class PortfolioApiTests(unittest.TestCase):
         profile._load_pairs = lambda: portfolio._cache
         response = profile.profile_response(Request({'dbn': '99Z999', 'school_year': '2024'}))
         self.assertEqual(response['statusCode'], 404)
+
+    def test_profile_includes_unavailable_canonical_demographics(self):
+        profile._load_pairs = lambda: portfolio._cache
+        response = profile.profile_response(Request({'dbn': '01M001', 'school_year': '2024'}))
+        body = json.loads(response['body'])
+        demographics = {row['demographic']: row for row in body['demographics']}
+        self.assertIn('Female', demographics)
+        self.assertIn('Male', demographics)
+        self.assertIsNone(demographics['Male']['attendance90'])
+        self.assertTrue(any('Male demographic record unavailable' in warning for warning in body['warnings']))
 
     def test_dbn_and_school_name_filters(self):
         _, body = self.call({'dbn': '01M001'})
