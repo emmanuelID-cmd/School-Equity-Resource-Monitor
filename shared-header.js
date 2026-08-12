@@ -4,6 +4,7 @@ header.innerHTML = '<a class="brand" href="index.html"><img src="school-equity-r
 document.body.prepend(header);
 const nav = document.querySelector('.nav');
 if (nav) {
+  if (!nav.querySelector('a[href="budget.html"]')) { const budgetLink = document.createElement('a'); budgetLink.href = 'budget.html'; budgetLink.textContent = 'Budget / Resources'; nav.append(budgetLink); }
   const actionNav = nav.querySelector('a[href="action-plans.html"]');
   if (actionNav) { const actionGroup = document.createElement('div'); actionGroup.className = 'nav-action-group'; actionNav.parentNode.insertBefore(actionGroup, actionNav); actionGroup.append(actionNav); const signOutLink = document.createElement('a'); signOutLink.href = 'login.html'; signOutLink.textContent = 'Sign out'; signOutLink.className = 'action-signout'; signOutLink.addEventListener('click', () => { localStorage.removeItem('serm-auth-session'); }); actionGroup.append(signOutLink); }
   const leftHint = document.createElement('span');
