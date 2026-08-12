@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 150" role="img" aria-labelledby="title desc">
+  <title id="title">School Equity Resource Monitor institutional school bars logo</title>
+  <desc id="desc">A civic school building with columns above balanced evidence bars and the full product name.</desc>
+  <rect width="280" height="150" rx="14" fill="#172033"/>
+  <path d="M55 47 140 18l85 29H55Z" fill="#bfdbfe"/><rect x="68" y="50" width="144" height="49" rx="2" fill="#075985"/><path d="M82 55h14v38H82zm28 0h14v38h-14zm28 0h14v38h-14zm28 0h14v38h-14z" fill="#e0f2fe"/><rect x="63" y="97" width="154" height="8" rx="2" fill="#38bdf8"/>
+  <rect x="74" y="113" width="40" height="6" rx="3" fill="#60a5fa"/><rect x="121" y="113" width="62" height="6" rx="3" fill="#bfdbfe"/><rect x="190" y="113" width="26" height="6" rx="3" fill="#38bdf8"/>
+  <text x="140" y="134" fill="#fff" font-family="Arial,sans-serif" font-size="10" font-weight="700" text-anchor="middle">SCHOOL EQUITY RESOURCE MONITOR</text>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 150" role="img" aria-labelledby="title desc">
+  <title id="title">School Equity Resource Monitor institutional school alignment logo</title>
+  <desc id="desc">A civic school building with aligned comparison lines above the full product name.</desc>
+  <rect width="280" height="150" rx="14" fill="#f0f9ff"/>
+  <path d="M55 47 140 18l85 29H55Z" fill="#172033"/><rect x="68" y="50" width="144" height="49" rx="2" fill="#075985"/><path d="M82 55h14v38H82zm28 0h14v38h-14zm28 0h14v38h-14zm28 0h14v38h-14z" fill="#e0f2fe"/><rect x="63" y="97" width="154" height="8" rx="2" fill="#2563eb"/>
+  <path d="M78 113h76M78 121h104" stroke="#0ea5e9" stroke-width="4" stroke-linecap="round"/><circle cx="168" cy="113" r="4" fill="#7c3aed"/><circle cx="194" cy="121" r="4" fill="#7c3aed"/>
+  <text x="140" y="140" fill="#172033" font-family="Arial,sans-serif" font-size="10" font-weight="700" text-anchor="middle">SCHOOL EQUITY RESOURCE MONITOR</text>
+</svg>

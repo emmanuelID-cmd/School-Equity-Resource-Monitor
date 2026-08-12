@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" role="img" aria-labelledby="title desc">
+  <title id="title">School Equity Resource Monitor logo sample: equity alignment</title>
+  <desc id="desc">A school roof above aligned blue comparison shapes.</desc>
+  <rect width="240" height="80" rx="12" fill="#172033"/><path d="M18 38 38 20l20 18" fill="none" stroke="#bfdbfe" stroke-width="6" stroke-linejoin="round"/><path d="M25 41h26v22H25z" fill="#2563eb"/><path d="M31 47h5v7h-5zm9 0h5v7h-5z" fill="#fff"/><path d="M74 30h42M74 47h42" fill="none" stroke="#38bdf8" stroke-width="6" stroke-linecap="round"/><circle cx="128" cy="34" r="4" fill="#bfdbfe"/><circle cx="128" cy="51" r="4" fill="#bfdbfe"/><text x="145" y="37" fill="#fff" font-family="Arial,sans-serif" font-size="11" font-weight="700">SCHOOL EQUITY</text><text x="145" y="53" fill="#bfdbfe" font-family="Arial,sans-serif" font-size="11">RESOURCE MONITOR</text>
+</svg>

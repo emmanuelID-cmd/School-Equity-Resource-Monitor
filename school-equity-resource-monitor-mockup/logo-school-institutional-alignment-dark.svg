@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 170" role="img" aria-labelledby="title desc">
+  <title id="title">School Equity Resource Monitor dark institutional alignment logo</title>
+  <desc id="desc">A dark multi-floor school building with windows and double doors, aligned comparison marks, and the full product name.</desc>
+  <rect width="280" height="170" rx="14" fill="#0b1220"/>
+  <path d="M48 48 140 15l92 33H48Z" fill="#1e3a5f" stroke="#5b8bb7" stroke-width="2"/>
+  <rect x="55" y="49" width="170" height="70" rx="2" fill="#102a43" stroke="#2f5d7c" stroke-width="2"/>
+  <rect x="64" y="58" width="152" height="25" fill="#163b59"/>
+  <path d="M72 64h13v10H72zm25 0h13v10H97zm25 0h13v10h-13zm25 0h13v10h-13zm25 0h13v10h-13z" fill="#8fb8d8"/>
+  <rect x="64" y="85" width="152" height="25" fill="#12324d"/>
+  <path d="M72 91h13v10H72zm25 0h13v10H97zm72 0h13v10h-13zm25 0h13v10h-13z" fill="#6f9fc2"/>
+  <rect x="121" y="85" width="38" height="34" fill="#07111e" stroke="#9cc4df" stroke-width="2"/><path d="M140 85v34" stroke="#9cc4df" stroke-width="2"/><circle cx="133" cy="103" r="1.5" fill="#d8edf9"/><circle cx="147" cy="103" r="1.5" fill="#d8edf9"/>
+  <rect x="48" y="119" width="184" height="7" rx="2" fill="#2f6f98"/>
+  <path d="M83 137h43M154 137h43M83 146h78" stroke="#6fa8cf" stroke-width="4" stroke-linecap="round"/><circle cx="140" cy="137" r="4" fill="#9b8bd4"/>
+  <text x="140" y="161" fill="#d8edf9" font-family="Arial,sans-serif" font-size="10" font-weight="700" text-anchor="middle">SCHOOL EQUITY RESOURCE MONITOR</text>
+</svg>

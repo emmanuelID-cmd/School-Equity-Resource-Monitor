@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 150" role="img" aria-labelledby="title desc">
+  <title id="title">School Equity Resource Monitor logo sample: school and connected evidence points</title>
+  <desc id="desc">A school outline connected to blue evidence points.</desc>
+  <rect width="360" height="150" rx="12" fill="#0b1220"/>
+  <g transform="translate(-2 -3) scale(1.08)"><path d="M18 50 68 18l50 32v67H18Z" fill="#172033"/><path d="M28 54h80v55H28z" fill="#075985"/>
+  <path d="M36 62h14v12H36zm27 0h14v12H63zm27 0h14v12H90zm-54 25h14v12H36zm27 0h14v12H63zm27 0h14v12H90z" fill="#bfdbfe"/>
+  <rect x="55" y="94" width="26" height="15" fill="#0b1d30" stroke="#e0f2fe" stroke-width="2"/><path d="M68 94v15" stroke="#e0f2fe" stroke-width="2"/><circle cx="63" cy="101" r="1.5" fill="#fff"/><circle cx="73" cy="101" r="1.5" fill="#fff"/></g>
+  <rect x="148" y="12" width="202" height="91" rx="8" fill="#101f35" stroke="#2f5d7c" stroke-width="2"/><path d="M160 38h178M160 64h178M160 90h178" stroke="#294765" stroke-width="1"/><path d="M168 80 194 57l26 14 27-30 28 17 27-25" fill="none" stroke="#55a6d9" stroke-width="3"/><path d="M168 91 194 80l26 5 27-19 28 8 27-14" fill="none" stroke="#a99be3" stroke-width="3"/><circle cx="194" cy="57" r="4" fill="#55a6d9"/><circle cx="247" cy="41" r="4" fill="#55a6d9"/><circle cx="220" cy="85" r="4" fill="#a99be3"/><circle cx="275" cy="74" r="4" fill="#a99be3"/>
+  <text x="148" y="124" fill="#d8edf9" font-family="Arial,sans-serif" font-size="13" font-weight="700">SCHOOL EQUITY</text><text x="148" y="140" fill="#8fb8d8" font-family="Arial,sans-serif" font-size="13" font-weight="700">RESOURCE MONITOR</text>
+</svg>
