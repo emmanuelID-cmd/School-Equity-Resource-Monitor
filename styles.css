@@ -7,4 +7,8 @@
 .schools-list{max-height:620px;overflow-y:auto;display:grid;gap:0}
 .schools-list .queue-item{display:flex;text-decoration:none}
 .profile-toolbar select{min-width:100px}
+.profile table th{vertical-align:bottom}
+.profile table .group-header{vertical-align:bottom}
+.profile table .bottom-header{padding-bottom:0}
+@media (min-width:601px){.profile table th,.profile table td{padding-left:18px;padding-right:18px}.profile table th:first-child,.profile table td:first-child{padding-left:0}.profile table th:last-child,.profile table td:last-child{padding-right:0}}
 @media (max-width:600px){.schools-toolbar{justify-content:stretch}.schools-toolbar label{width:100%}.schools-toolbar input,.schools-toolbar select{width:100%;min-width:0}.profile-toolbar{justify-content:space-between}}
