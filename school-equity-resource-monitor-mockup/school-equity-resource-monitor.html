@@ -1,0 +1,115 @@
+<div id="school-equity-resource-monitor">
+  <style>
+    #school-equity-resource-monitor {
+      --product-ink: #172033;
+      --product-muted: #64748b;
+      --product-line: #dbe3ee;
+      --product-page: #eef3f8;
+      --product-surface: #ffffff;
+      --product-accent: #075985;
+      --product-accent-soft: #e0f2fe;
+      --product-warning: #b45309;
+      --product-success: #15803d;
+      color: var(--product-ink);
+      background: var(--product-page);
+      font: 14px/1.45 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 720px;
+    }
+    #school-equity-resource-monitor * { box-sizing: border-box; }
+    #school-equity-resource-monitor .product-shell { display: grid; grid-template-columns: 190px 1fr; min-height: 720px; background: var(--product-page); }
+    #school-equity-resource-monitor .product-nav { padding: 24px 16px; background: var(--product-ink); color: #dbeafe; }
+    #school-equity-resource-monitor .product-mark { margin: 0 0 32px; color: #fff; font-size: 16px; font-weight: 800; letter-spacing: -0.02em; }
+    #school-equity-resource-monitor .product-nav a { display: block; padding: 9px 10px; color: #bfdbfe; text-decoration: none; border-radius: 5px; }
+    #school-equity-resource-monitor .product-nav a[aria-current="page"] { background: #28445f; color: #fff; }
+    #school-equity-resource-monitor .product-main { padding: 24px 28px 36px; overflow: hidden; }
+    #school-equity-resource-monitor .product-kicker { margin: 0 0 5px; color: var(--product-accent); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    #school-equity-resource-monitor h1, #school-equity-resource-monitor h2, #school-equity-resource-monitor h3 { margin: 0; line-height: 1.2; }
+    #school-equity-resource-monitor h1 { font-size: 25px; letter-spacing: -.035em; }
+    #school-equity-resource-monitor h2 { font-size: 16px; }
+    #school-equity-resource-monitor h3 { font-size: 13px; }
+    #school-equity-resource-monitor .product-subhead { margin: 5px 0 18px; color: var(--product-muted); }
+    #school-equity-resource-monitor .product-toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; padding: 13px; background: var(--product-surface); border: 1px solid var(--product-line); border-radius: 8px; }
+    #school-equity-resource-monitor .product-control { display: grid; gap: 4px; min-width: 145px; color: var(--product-muted); font-size: 11px; font-weight: 700; }
+    #school-equity-resource-monitor .product-control select { min-height: 32px; padding: 5px 8px; border: 1px solid #bac8d8; border-radius: 4px; background: #fff; color: var(--product-ink); font: inherit; }
+    #school-equity-resource-monitor .product-grid { display: grid; grid-template-columns: 230px minmax(330px, 1fr) 260px; gap: 14px; align-items: start; }
+    #school-equity-resource-monitor .product-panel { padding: 16px; background: var(--product-surface); border: 1px solid var(--product-line); border-radius: 8px; }
+    #school-equity-resource-monitor .product-panel-title { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; margin-bottom: 12px; }
+    #school-equity-resource-monitor .product-count { color: var(--product-muted); font-size: 11px; font-weight: 700; }
+    #school-equity-resource-monitor .queue-item { display: grid; gap: 4px; padding: 11px 0; border-top: 1px solid var(--product-line); }
+    #school-equity-resource-monitor .queue-item:first-of-type { padding-top: 0; border-top: 0; }
+    #school-equity-resource-monitor .queue-item strong { font-size: 12px; }
+    #school-equity-resource-monitor .queue-item span { color: var(--product-muted); font-size: 11px; }
+    #school-equity-resource-monitor .queue-item em { color: var(--product-warning); font-size: 11px; font-style: normal; font-weight: 800; }
+    #school-equity-resource-monitor .profile-head { display: flex; justify-content: space-between; gap: 12px; align-items: start; padding-bottom: 13px; border-bottom: 1px solid var(--product-line); }
+    #school-equity-resource-monitor .profile-head p { margin: 4px 0 0; color: var(--product-muted); font-size: 12px; }
+    #school-equity-resource-monitor .profile-status { padding: 5px 8px; color: #854d0e; background: #fef3c7; border-radius: 4px; font-size: 10px; font-weight: 800; white-space: nowrap; }
+    #school-equity-resource-monitor .metric-row { display: grid; grid-template-columns: 1fr 70px 70px; gap: 8px; align-items: center; margin-top: 13px; font-size: 11px; }
+    #school-equity-resource-monitor .metric-row header { color: var(--product-muted); font-size: 10px; font-weight: 700; text-align: right; }
+    #school-equity-resource-monitor .metric-row header:first-child { text-align: left; }
+    #school-equity-resource-monitor .metric-name { font-weight: 700; }
+    #school-equity-resource-monitor .metric-bar { height: 8px; margin-top: 4px; overflow: hidden; background: #e2e8f0; border-radius: 4px; }
+    #school-equity-resource-monitor .metric-bar span { display: block; height: 100%; background: var(--product-accent); border-radius: 4px; }
+    #school-equity-resource-monitor .metric-number { text-align: right; font-weight: 800; }
+    #school-equity-resource-monitor .metric-gap { color: var(--product-warning); text-align: right; font-weight: 800; }
+    #school-equity-resource-monitor .profile-note { margin: 16px 0 0; padding: 10px; color: #334155; background: var(--product-accent-soft); border-left: 3px solid var(--product-accent); font-size: 11px; }
+    #school-equity-resource-monitor .context-item { padding: 11px 0; border-top: 1px solid var(--product-line); }
+    #school-equity-resource-monitor .context-item:first-of-type { border-top: 0; padding-top: 0; }
+    #school-equity-resource-monitor .context-label { color: var(--product-muted); font-size: 10px; font-weight: 700; text-transform: uppercase; }
+    #school-equity-resource-monitor .context-value { margin-top: 3px; font-size: 17px; font-weight: 800; }
+    #school-equity-resource-monitor .context-value.pending { color: var(--product-muted); font-size: 13px; }
+    #school-equity-resource-monitor .action-panel { margin-top: 14px; padding: 14px 16px; background: #fff; border: 1px solid var(--product-line); border-radius: 8px; }
+    #school-equity-resource-monitor .action-panel p { margin: 5px 0 0; color: var(--product-muted); font-size: 12px; }
+    #school-equity-resource-monitor .action-list { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+    #school-equity-resource-monitor .action-list span { padding: 6px 8px; color: var(--product-accent); background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 4px; font-size: 11px; font-weight: 700; }
+    #school-equity-resource-monitor .product-footer { margin-top: 14px; color: var(--product-muted); font-size: 10px; }
+    @media (max-width: 950px) { #school-equity-resource-monitor .product-grid { grid-template-columns: 210px minmax(320px, 1fr); } #school-equity-resource-monitor .product-context { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; } }
+    @media (max-width: 680px) { #school-equity-resource-monitor .product-shell { display: block; } #school-equity-resource-monitor .product-nav { display: flex; gap: 12px; align-items: center; overflow-x: auto; padding: 12px 16px; } #school-equity-resource-monitor .product-mark { margin: 0 14px 0 0; white-space: nowrap; } #school-equity-resource-monitor .product-nav a { white-space: nowrap; } #school-equity-resource-monitor .product-main { padding: 18px 14px 28px; } #school-equity-resource-monitor .product-grid, #school-equity-resource-monitor .product-context { display: block; } #school-equity-resource-monitor .product-panel, #school-equity-resource-monitor .product-context { margin-bottom: 12px; } }
+  </style>
+  <div class="product-shell">
+    <nav class="product-nav" aria-label="Product navigation">
+      <p class="product-mark">School Equity<br>Resource Monitor</p>
+      <a href="#" aria-current="page">Portfolio review</a>
+      <a href="#">Districts</a>
+      <a href="#">Schools</a>
+      <a href="#">Action plans</a>
+    </nav>
+    <main class="product-main">
+      <p class="product-kicker">Superintendent view · illustrative mockup</p>
+      <h1>Where should we focus support?</h1>
+      <p class="product-subhead">Prioritize schools with persistent demographic graduation gaps, attendance signals, and resource context.</p>
+      <div class="product-toolbar" aria-label="Review filters">
+        <label class="product-control">School year<select><option>2024</option></select></label>
+        <label class="product-control">Borough<select><option>All boroughs</option></select></label>
+        <label class="product-control">School type<select><option>High school</option></select></label>
+        <label class="product-control">Review signal<select><option>Persistent gap + attendance</option></select></label>
+      </div>
+      <div class="product-grid">
+        <section class="product-panel" aria-labelledby="queue-title">
+          <div class="product-panel-title"><h2 id="queue-title">Priority review queue</h2><span class="product-count">12 schools</span></div>
+          <div class="queue-item"><strong>DBN 01M292</strong><span>Manhattan · persistent gap</span><em>Attendance signal</em></div>
+          <div class="queue-item"><strong>DBN 10X###</strong><span>Bronx · widening gap</span><em>Review resources</em></div>
+          <div class="queue-item"><strong>DBN 18K###</strong><span>Brooklyn · low attendance</span><em>Monitor trend</em></div>
+          <div class="queue-item"><strong>DBN 24Q###</strong><span>Queens · improving</span><em style="color:var(--product-success)">Positive trend</em></div>
+        </section>
+        <section class="product-panel" aria-labelledby="profile-title">
+          <div class="profile-head"><div><h2 id="profile-title">DBN 01M292</h2><p>High school · Manhattan · school profile</p></div><span class="profile-status">Needs review</span></div>
+          <div class="metric-row"><header>Metric</header><header>Rate</header><header>Gap</header></div>
+          <div class="metric-row"><div class="metric-name">Female · graduation<div class="metric-bar"><span style="width:88%"></span></div></div><div class="metric-number">88.0%</div><div class="metric-gap">—</div></div>
+          <div class="metric-row"><div class="metric-name">Male · graduation<div class="metric-bar"><span style="width:81%"></span></div></div><div class="metric-number">81.0%</div><div class="metric-gap">7.0 pp</div></div>
+          <div class="metric-row"><div class="metric-name">Female · 90%+ attendance<div class="metric-bar"><span style="width:84%"></span></div></div><div class="metric-number">84.0%</div><div class="metric-gap">—</div></div>
+          <div class="metric-row"><div class="metric-name">Male · 90%+ attendance<div class="metric-bar"><span style="width:76%"></span></div></div><div class="metric-number">76.0%</div><div class="metric-gap">8.0 pp</div></div>
+          <p class="profile-note">Observed pattern: the attendance gap and graduation gap point in the same direction. This is a review signal, not a causal conclusion.</p>
+        </section>
+        <aside class="product-panel product-context" aria-labelledby="context-title">
+          <div class="product-panel-title"><h2 id="context-title">Resource context</h2><span class="product-count">same-year view</span></div>
+          <div class="context-item"><div class="context-label">Funding per student</div><div class="context-value pending">Budget feed pending</div></div>
+          <div class="context-item"><div class="context-label">Fair Student Funding</div><div class="context-value pending">Budget feed pending</div></div>
+          <div class="context-item"><div class="context-label">Cohort-size band</div><div class="context-value">50–99</div></div>
+          <div class="context-item"><div class="context-label">Matched school-years</div><div class="context-value">18</div></div>
+        </aside>
+      </div>
+      <section class="action-panel" aria-labelledby="action-title"><h2 id="action-title">Recommended review conversation</h2><p>Use the evidence to decide what the district team should inspect next.</p><div class="action-list"><span>Review attendance outreach</span><span>Audit graduation credits</span><span>Compare counselor capacity</span><span>Schedule 30-day follow-up</span></div></section>
+      <p class="product-footer">Illustrative values shown for layout only · demographic cohorts are standalone · findings require adequate sample size and aligned years.</p>
+    </main>
+  </div>
+</div>

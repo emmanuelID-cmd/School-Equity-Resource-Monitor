@@ -2,6 +2,7 @@ import json
 import unittest
 from api import portfolio
 from api import portfolio_meta
+from api import profile
 
 
 class Request:
@@ -50,6 +51,29 @@ class PortfolioApiTests(unittest.TestCase):
         self.assertEqual(body['years'][0], '2015')
         self.assertEqual(body['years'][-1], '2022')
         self.assertIn('Bronx', body['boroughs'])
+
+    def test_profile_lookup_returns_demographics(self):
+        profile._load_pairs = lambda: portfolio._cache
+        response = profile.profile_response(Request({'dbn': '01M001', 'school_year': '2024'}))
+        self.assertEqual(response['statusCode'], 200)
+        body = json.loads(response['body'])
+        self.assertEqual(body['dbn'], '01M001')
+        self.assertEqual(body['demographics'][0]['demographic'], 'Female')
+
+    def test_profile_requires_dbn_and_year(self):
+        response = profile.profile_response(Request({'dbn': '01M001'}))
+        self.assertEqual(response['statusCode'], 400)
+
+    def test_profile_not_found(self):
+        profile._load_pairs = lambda: portfolio._cache
+        response = profile.profile_response(Request({'dbn': '99Z999', 'school_year': '2024'}))
+        self.assertEqual(response['statusCode'], 404)
+
+    def test_dbn_and_school_name_filters(self):
+        _, body = self.call({'dbn': '01M001'})
+        self.assertEqual(body['schools'][0]['dbn'], '01M001')
+        _, body = self.call({'school_name': 'Other'})
+        self.assertEqual(body['schools'][0]['schoolName'], 'Other')
 
 
 if __name__ == '__main__': unittest.main()

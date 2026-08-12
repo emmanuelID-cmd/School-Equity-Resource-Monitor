@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <rect width="1400" height="900" fill="#eef3f8"/>
+  <rect width="190" height="900" fill="#172033"/>
+  <text x="28" y="48" fill="#ffffff" font-family="Arial" font-size="19" font-weight="700">School Equity</text>
+  <text x="28" y="72" fill="#ffffff" font-family="Arial" font-size="19" font-weight="700">Resource Monitor</text>
+  <rect x="16" y="116" width="158" height="42" rx="5" fill="#28445f"/>
+  <text x="31" y="143" fill="#ffffff" font-family="Arial" font-size="14">Portfolio review</text>
+  <text x="31" y="194" fill="#bfdbfe" font-family="Arial" font-size="14">Districts</text>
+  <text x="31" y="238" fill="#bfdbfe" font-family="Arial" font-size="14">Schools</text>
+  <text x="31" y="282" fill="#bfdbfe" font-family="Arial" font-size="14">Action plans</text>
+  <text x="226" y="50" fill="#075985" font-family="Arial" font-size="13" font-weight="700" letter-spacing="2">SUPERINTENDENT VIEW · ILLUSTRATIVE MOCKUP</text>
+  <text x="226" y="86" fill="#172033" font-family="Arial" font-size="30" font-weight="700">Where should we focus support?</text>
+  <text x="226" y="115" fill="#64748b" font-family="Arial" font-size="15">Prioritize schools with persistent demographic gaps, attendance signals, and resource context.</text>
+  <rect x="226" y="140" width="1140" height="76" rx="8" fill="#ffffff" stroke="#dbe3ee"/>
+  <g font-family="Arial" font-size="12" fill="#64748b" font-weight="700">
+    <text x="246" y="162">SCHOOL YEAR</text><text x="430" y="162">BOROUGH</text><text x="614" y="162">SCHOOL TYPE</text><text x="798" y="162">REVIEW SIGNAL</text>
+  </g>
+  <g font-family="Arial" font-size="14" fill="#172033">
+    <rect x="246" y="172" width="155" height="30" rx="4" fill="#fff" stroke="#bac8d8"/><text x="258" y="192">2024</text>
+    <rect x="430" y="172" width="155" height="30" rx="4" fill="#fff" stroke="#bac8d8"/><text x="442" y="192">All boroughs</text>
+    <rect x="614" y="172" width="155" height="30" rx="4" fill="#fff" stroke="#bac8d8"/><text x="626" y="192">High school</text>
+    <rect x="798" y="172" width="270" height="30" rx="4" fill="#fff" stroke="#bac8d8"/><text x="810" y="192">Persistent gap + attendance</text>
+  </g>
+  <rect x="226" y="236" width="254" height="420" rx="8" fill="#ffffff" stroke="#dbe3ee"/>
+  <text x="244" y="267" fill="#172033" font-family="Arial" font-size="17" font-weight="700">Priority review queue</text>
+  <text x="425" y="267" fill="#64748b" font-family="Arial" font-size="12" font-weight="700">12 schools</text>
+  <g font-family="Arial">
+    <line x1="244" y1="286" x2="462" y2="286" stroke="#dbe3ee"/><text x="244" y="310" fill="#172033" font-size="13" font-weight="700">DBN 01M292</text><text x="244" y="330" fill="#64748b" font-size="12">Manhattan · persistent gap</text><text x="244" y="350" fill="#b45309" font-size="12" font-weight="700">Attendance signal</text>
+    <line x1="244" y1="370" x2="462" y2="370" stroke="#dbe3ee"/><text x="244" y="394" fill="#172033" font-size="13" font-weight="700">DBN 10X###</text><text x="244" y="414" fill="#64748b" font-size="12">Bronx · widening gap</text><text x="244" y="434" fill="#b45309" font-size="12" font-weight="700">Review resources</text>
+    <line x1="244" y1="454" x2="462" y2="454" stroke="#dbe3ee"/><text x="244" y="478" fill="#172033" font-size="13" font-weight="700">DBN 18K###</text><text x="244" y="498" fill="#64748b" font-size="12">Brooklyn · low attendance</text><text x="244" y="518" fill="#b45309" font-size="12" font-weight="700">Monitor trend</text>
+    <line x1="244" y1="538" x2="462" y2="538" stroke="#dbe3ee"/><text x="244" y="562" fill="#172033" font-size="13" font-weight="700">DBN 24Q###</text><text x="244" y="582" fill="#64748b" font-size="12">Queens · improving</text><text x="244" y="602" fill="#15803d" font-size="12" font-weight="700">Positive trend</text>
+  </g>
+  <rect x="496" y="236" width="520" height="420" rx="8" fill="#ffffff" stroke="#dbe3ee"/>
+  <text x="518" y="270" fill="#172033" font-family="Arial" font-size="18" font-weight="700">DBN 01M292</text><text x="518" y="292" fill="#64748b" font-family="Arial" font-size="12">High school · Manhattan · school profile</text>
+  <rect x="880" y="255" width="110" height="28" rx="4" fill="#fef3c7"/><text x="895" y="274" fill="#854d0e" font-family="Arial" font-size="11" font-weight="700">Needs review</text>
+  <line x1="518" y1="315" x2="994" y2="315" stroke="#dbe3ee"/>
+  <g font-family="Arial" font-size="11" fill="#64748b" font-weight="700"><text x="518" y="337">METRIC</text><text x="895" y="337">RATE</text><text x="956" y="337">GAP</text></g>
+  <g font-family="Arial">
+    <text x="518" y="365" fill="#172033" font-size="12" font-weight="700">Female · graduation</text><rect x="518" y="374" width="330" height="8" rx="4" fill="#e2e8f0"/><rect x="518" y="374" width="290" height="8" rx="4" fill="#075985"/><text x="895" y="370" fill="#172033" font-size="12" font-weight="700">88.0%</text><text x="956" y="370" fill="#b45309" font-size="12" font-weight="700">—</text>
+    <text x="518" y="419" fill="#172033" font-size="12" font-weight="700">Male · graduation</text><rect x="518" y="428" width="330" height="8" rx="4" fill="#e2e8f0"/><rect x="518" y="428" width="267" height="8" rx="4" fill="#075985"/><text x="895" y="424" fill="#172033" font-size="12" font-weight="700">81.0%</text><text x="956" y="424" fill="#b45309" font-size="12" font-weight="700">7.0 pp</text>
+    <text x="518" y="473" fill="#172033" font-size="12" font-weight="700">Female · 90%+ attendance</text><rect x="518" y="482" width="330" height="8" rx="4" fill="#e2e8f0"/><rect x="518" y="482" width="277" height="8" rx="4" fill="#075985"/><text x="895" y="478" fill="#172033" font-size="12" font-weight="700">84.0%</text><text x="956" y="478" fill="#b45309" font-size="12" font-weight="700">—</text>
+    <text x="518" y="527" fill="#172033" font-size="12" font-weight="700">Male · 90%+ attendance</text><rect x="518" y="536" width="330" height="8" rx="4" fill="#e2e8f0"/><rect x="518" y="536" width="251" height="8" rx="4" fill="#075985"/><text x="895" y="532" fill="#172033" font-size="12" font-weight="700">76.0%</text><text x="956" y="532" fill="#b45309" font-size="12" font-weight="700">8.0 pp</text>
+  </g>
+  <rect x="518" y="570" width="476" height="57" rx="4" fill="#e0f2fe" stroke="#075985"/><text x="534" y="594" fill="#334155" font-family="Arial" font-size="11">Observed pattern: attendance and graduation gaps point</text><text x="534" y="611" fill="#334155" font-family="Arial" font-size="11">in the same direction. Review signal, not causal proof.</text>
+  <rect x="1032" y="236" width="334" height="420" rx="8" fill="#ffffff" stroke="#dbe3ee"/>
+  <text x="1052" y="270" fill="#172033" font-family="Arial" font-size="17" font-weight="700">Resource context</text><text x="1260" y="270" fill="#64748b" font-family="Arial" font-size="11" font-weight="700">same-year view</text>
+  <g font-family="Arial"><line x1="1052" y1="290" x2="1346" y2="290" stroke="#dbe3ee"/><text x="1052" y="315" fill="#64748b" font-size="10" font-weight="700">FUNDING PER STUDENT</text><text x="1052" y="340" fill="#64748b" font-size="14">Budget feed pending</text><line x1="1052" y1="365" x2="1346" y2="365" stroke="#dbe3ee"/><text x="1052" y="390" fill="#64748b" font-size="10" font-weight="700">FAIR STUDENT FUNDING</text><text x="1052" y="415" fill="#64748b" font-size="14">Budget feed pending</text><line x1="1052" y1="440" x2="1346" y2="440" stroke="#dbe3ee"/><text x="1052" y="465" fill="#64748b" font-size="10" font-weight="700">COHORT-SIZE BAND</text><text x="1052" y="492" fill="#172033" font-size="22" font-weight="700">50–99</text><line x1="1052" y1="515" x2="1346" y2="515" stroke="#dbe3ee"/><text x="1052" y="540" fill="#64748b" font-size="10" font-weight="700">MATCHED SCHOOL-YEARS</text><text x="1052" y="567" fill="#172033" font-size="22" font-weight="700">18</text></g>
+  <rect x="226" y="680" width="1140" height="108" rx="8" fill="#ffffff" stroke="#dbe3ee"/>
+  <text x="246" y="712" fill="#172033" font-family="Arial" font-size="17" font-weight="700">Recommended review conversation</text><text x="246" y="734" fill="#64748b" font-family="Arial" font-size="12">Use the evidence to decide what the district team should inspect next.</text>
+  <g font-family="Arial" font-size="11" font-weight="700"><rect x="246" y="750" width="170" height="25" rx="4" fill="#f0f9ff" stroke="#bae6fd"/><text x="258" y="767" fill="#075985">Review attendance outreach</text><rect x="426" y="750" width="145" height="25" rx="4" fill="#f0f9ff" stroke="#bae6fd"/><text x="438" y="767" fill="#075985">Audit graduation credits</text><rect x="581" y="750" width="170" height="25" rx="4" fill="#f0f9ff" stroke="#bae6fd"/><text x="593" y="767" fill="#075985">Compare counselor capacity</text><rect x="761" y="750" width="150" height="25" rx="4" fill="#f0f9ff" stroke="#bae6fd"/><text x="773" y="767" fill="#075985">Schedule follow-up</text></g>
+</svg>

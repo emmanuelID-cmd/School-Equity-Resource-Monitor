@@ -4,15 +4,16 @@ from urllib.parse import parse_qs, urlparse
 import json
 from api.portfolio import portfolio_response
 from api.portfolio_meta import metadata_response
+from api.profile import profile_response
 
 
 class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
         parsed = urlparse(self.path)
-        if parsed.path in ('/api/portfolio', '/api/portfolio/meta', '/api/portfolio_meta'):
+        if parsed.path in ('/api/portfolio', '/api/portfolio/meta', '/api/portfolio_meta', '/api/profile'):
             request = type('Request', (), {'args': {key: values[-1] for key, values in parse_qs(parsed.query).items()}})()
             metadata_path = parsed.path in ('/api/portfolio/meta', '/api/portfolio_meta')
-            result = metadata_response(request) if metadata_path else portfolio_response(request)
+            result = metadata_response(request) if metadata_path else (profile_response(request) if parsed.path == '/api/profile' else portfolio_response(request))
             body = result['body'].encode()
             self.send_response(result['statusCode'])
             self.send_header('Content-Type', 'application/json')
