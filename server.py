@@ -6,6 +6,7 @@ import os
 from api.portfolio import portfolio_response
 from api.portfolio_meta import metadata_response
 from api.profile import profile_response
+from api.budget import budget_response, budget_search_response
 
 
 def public_config():
@@ -37,10 +38,10 @@ class Handler(SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(body)
             return
-        if parsed.path in ('/api/portfolio', '/api/portfolio/meta', '/api/portfolio_meta', '/api/profile'):
+        if parsed.path in ('/api/portfolio', '/api/portfolio/meta', '/api/portfolio_meta', '/api/profile', '/api/budget', '/api/budget/search'):
             request = type('Request', (), {'args': {key: values[-1] for key, values in parse_qs(parsed.query).items()}})()
             metadata_path = parsed.path in ('/api/portfolio/meta', '/api/portfolio_meta')
-            result = metadata_response(request) if metadata_path else (profile_response(request) if parsed.path == '/api/profile' else portfolio_response(request))
+            result = metadata_response(request) if metadata_path else (profile_response(request) if parsed.path == '/api/profile' else budget_search_response(request) if parsed.path == '/api/budget/search' else budget_response(request) if parsed.path == '/api/budget' else portfolio_response(request))
             body = result['body'].encode()
             self.send_response(result['statusCode'])
             self.send_header('Content-Type', 'application/json')
