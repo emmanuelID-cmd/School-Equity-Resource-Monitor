@@ -2,6 +2,7 @@
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlparse
 import json
+import os
 from api.portfolio import portfolio_response
 from api.portfolio_meta import metadata_response
 from api.profile import profile_response
@@ -50,4 +51,5 @@ class Handler(SimpleHTTPRequestHandler):
 
 
 if __name__ == '__main__':
-    ThreadingHTTPServer(('127.0.0.1', 4173), Handler).serve_forever()
+    port = int(os.environ.get('PORT', '4173'))
+    ThreadingHTTPServer(('0.0.0.0', port), Handler).serve_forever()
