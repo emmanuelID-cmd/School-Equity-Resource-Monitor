@@ -1,3 +1,5 @@
+import './shared-header.js';
+
 const params = new URLSearchParams(location.search);
 const dbn = params.get('dbn');
 const selectedYear = params.get('school_year');

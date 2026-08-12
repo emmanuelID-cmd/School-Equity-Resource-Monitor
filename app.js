@@ -1,3 +1,5 @@
+import './shared-header.js';
+
 const initialCursor = new URLSearchParams(window.location.search).get('cursor');
 const state = { schools: [], selected: null, selectedSchool: null, cursor: initialCursor, hasMore: true, loading: false, gapThreshold: 'all' };
 const $ = (id) => document.getElementById(id);
