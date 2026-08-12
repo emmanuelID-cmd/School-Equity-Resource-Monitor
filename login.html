@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sign in · School Equity Resource Monitor</title><link rel="stylesheet" href="styles.css"></head>
+<body><main class="auth-page"><section class="auth-card" aria-labelledby="login-title"><p class="kicker">School Equity Resource Monitor</p><h1 id="login-title">Sign in</h1><p class="subhead">Sign in to access authenticated Action Plans.</p><form id="login-form"><label>Email<input id="email" name="email" type="email" autocomplete="email" required></label><label>Password<input id="password" name="password" type="password" autocomplete="current-password" required></label><button type="submit">Sign in</button><p id="login-status" class="status" role="alert" aria-live="polite"></p></form></section></main><script type="module">
+import { signIn, currentSession, signOut } from './auth.js';
+const form = document.getElementById('login-form'); const status = document.getElementById('login-status');
+if (new URLSearchParams(window.location.search).get('expired') === '1') { signOut(); status.textContent = 'Your session expired. Please sign in again.'; }
+if (currentSession()?.access_token) window.location.replace('index.html');
+form.addEventListener('submit', async (event) => { event.preventDefault(); status.textContent = 'Signing in…'; try { await signIn(form.email.value, form.password.value); window.location.replace('index.html'); } catch (error) { status.textContent = error.message; } });
+</script></body></html>

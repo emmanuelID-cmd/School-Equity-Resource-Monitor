@@ -49,12 +49,13 @@ def portfolio_response(request):
         year = query.get('year', '')
         borough = query.get('borough', '')
         dbn = query.get('dbn', '').strip().upper()
+        dbn_prefix = query.get('dbn_prefix', '').strip().upper()
         school_name = query.get('school_name', '').strip().lower()
         signal = query.get('signal', 'all')
         gap_threshold = float(query.get('gap', 0) or 0)
         limit = min(max(int(query.get('limit', 100)), 1), 100)
         cursor = query.get('cursor', '')
-        pairs = [p for p in _load_pairs() if (not year or p['schoolYear'] == year) and (not borough or p['borough'] == borough) and (not dbn or p['dbn'] == dbn) and (not school_name or school_name in p.get('schoolName', '').lower())]
+        pairs = [p for p in _load_pairs() if (not year or p['schoolYear'] == year) and (not borough or p['borough'] == borough) and (not dbn or p['dbn'] == dbn) and (not dbn_prefix or p['dbn'].startswith(dbn_prefix)) and (not school_name or school_name in p.get('schoolName', '').lower())]
         schools = {}
         for pair in pairs:
             key = f"{pair['dbn']}|{pair['schoolYear']}"

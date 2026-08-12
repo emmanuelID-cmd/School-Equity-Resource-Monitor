@@ -225,3 +225,55 @@ For the current and near-term product:
 - Use neutral language such as “This pattern may warrant a learning-experience review.”
 - Do not generate instructional recommendations or causal explanations.
 - Treat any future learning-experience analysis as a separate scoped phase requiring additional data and review criteria.
+
+## Future access permissions for Action Plans
+
+The initial Action Plans workflow should remain available to every authenticated user who has access to the product. This supports team collaboration while keeping unauthenticated visitors out of the workflow.
+
+The current product should preserve the following boundaries:
+
+- Authenticated users may view, create, and update Action Plans.
+- Unauthenticated visitors may not access Action Plans.
+- School evidence, attendance values, graduation values, denominators, demographic records, and warnings remain read-only.
+- Workflow fields such as owner team, selected actions, status, notes, and follow-up date may be edited by authenticated users.
+
+A later phase may introduce role-based permissions if the product requires different levels of access. Potential roles include:
+
+- Admin — manage users, permissions, and Action Plans.
+- Team editor — create and update Action Plans.
+- Viewer — view Action Plans and evidence without editing.
+
+Role-based permissions should not be added implicitly. A future Planner must define the role model, ownership rules, invitation process, audit requirements, and Row Level Security policies before implementation. Until then, authenticated team collaboration is the approved access model.
+
+## Future ticketing and email notifications
+
+The current Action Plans workflow status is not a ticketing system. Saved Plans may show Draft, In progress, Complete, or Deferred, but the initial workflow does not yet provide ticket numbers, status history, assignment notifications, or email delivery.
+
+A future ticketing layer may add:
+
+- A generated ticket identifier, such as `AP-2026-0001`.
+- A status-history record for each transition.
+- The user, team, timestamp, and note associated with each transition.
+- Assignment and ownership-change events.
+- Follow-up-date reminders.
+- Email notifications when a plan is created, assigned, updated, completed, or deferred.
+- Email escalation notifications that send the ticket details directly to the person or office selected in the escalation level.
+
+Email delivery should be implemented through a server-side Supabase Edge Function and a configured email provider or SMTP service. Browser code must not contain email-provider secrets or send privileged messages directly.
+
+Before implementation, a future Planner must define the ticket lifecycle, numbering rules, notification recipients, opt-out behavior, delivery-failure handling, audit retention, escalation-level email addresses, and whether notifications go to individual users, teams, or both. The initial Phase 5 workflow remains authenticated and collaborative without ticketing or email notifications.
+
+## Future account access model — invite-only users
+
+The eventual product should use invite-only access rather than open public registration. This is appropriate for an internal superintendent and school-support workflow where access should be limited to approved staff and collaborators.
+
+The future account model may include:
+
+- Administrators inviting approved users by email.
+- Supabase Auth confirmation before first sign-in.
+- A visible sign-in and sign-out experience.
+- Password-reset and session-expiration recovery.
+- Optional role assignment after invitation, such as Admin, Team editor, or Viewer.
+- Disabling public self-registration in the production environment.
+
+During development, open registration may remain enabled temporarily for testing. Before production deployment, the Planner must define the invitation process, administrator responsibilities, deactivation behavior, and access-review requirements. Invite-only access does not change the observational purpose of Action Plans or permit users to edit underlying school evidence.
