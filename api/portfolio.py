@@ -12,6 +12,7 @@ from pathlib import Path
 from src.data.normalize import API_URL, audit_rows
 
 _cache = None
+BOROUGH_ORDER = {'Brooklyn': 0, 'Bronx': 1, 'Manhattan': 2, 'Queens': 3, 'Staten Island': 4}
 
 
 def _load_pairs():
@@ -52,6 +53,7 @@ def portfolio_response(request):
         dbn_prefix = query.get('dbn_prefix', '').strip().upper()
         school_name = query.get('school_name', '').strip().lower()
         signal = query.get('signal', 'all')
+        directory = query.get('directory', '') == 'latest'
         gap_threshold = float(query.get('gap', 0) or 0)
         limit = min(max(int(query.get('limit', 100)), 1), 100)
         cursor = query.get('cursor', '')
@@ -73,7 +75,30 @@ def portfolio_response(request):
             elif graduation.get('value') is None: warnings.append('Graduation value missing or suppressed')
             elif graduation.get('denominator') is not None and graduation.get('denominator', 0) < 10: warnings.append('Graduation denominator below 10')
             school.setdefault('warnings', []).extend(warnings)
-        result = sorted(schools.values(), key=lambda school: (school['schoolYear'], school['dbn']))
+        result = sorted(schools.values(), key=lambda school: (BOROUGH_ORDER.get(school['borough'], len(BOROUGH_ORDER)), school['dbn'], school['schoolYear']))
+        if directory:
+            years_by_dbn = {}
+            for school in result:
+                years_by_dbn.setdefault(school['dbn'], []).append(school)
+            latest_by_dbn = {}
+            for dbn, school_years in years_by_dbn.items():
+                comparable_years = [school for school in school_years if len(school['evidence']) >= 2]
+                selected = max(comparable_years or school_years, key=lambda school: int(school['schoolYear']))
+                latest_by_dbn[dbn] = {**selected, 'comparisonAvailable': bool(comparable_years)}
+            result = sorted(latest_by_dbn.values(), key=lambda school: (BOROUGH_ORDER.get(school['borough'], len(BOROUGH_ORDER)), school['dbn']))
+            if signal == 'gap':
+                result = [school for school in result if school['signals']]
+            elif signal == 'missing':
+                result = [school for school in result if not school['signals']]
+            if gap_threshold:
+                result = [school for school in result if any(e.get('gap', 0) >= gap_threshold and (e.get('denominator') or 0) >= 10 and (e.get('graduation') or {}).get('denominator', 0) >= 10 for e in school.get('evidence', []))]
+            total = len(result)
+            if cursor:
+                try: result = result[result.index(next(school for school in result if f"{school['borough']}|{school['dbn']}" == cursor)) + 1:]
+                except StopIteration: result = []
+            page = result[:limit]
+            next_cursor = f"{page[-1]['borough']}|{page[-1]['dbn']}" if len(result) > limit else None
+            return {'statusCode': 200, 'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'}, 'body': json.dumps({'schools': page, 'total': total, 'nextCursor': next_cursor, 'hasMore': next_cursor is not None})}
         if signal == 'gap':
             result = [school for school in result if school['signals']]
         elif signal == 'missing':
@@ -82,9 +107,10 @@ def portfolio_response(request):
             result = [school for school in result if any(e.get('gap', 0) >= gap_threshold and (e.get('denominator') or 0) >= 10 and (e.get('graduation') or {}).get('denominator', 0) >= 10 for e in school.get('evidence', []))]
         total = len(result)
         if cursor:
-            result = [school for school in result if f"{school['schoolYear']}|{school['dbn']}" > cursor]
+            try: result = result[result.index(next(school for school in result if f"{school['borough']}|{school['dbn']}|{school['schoolYear']}" == cursor)) + 1:]
+            except StopIteration: result = []
         page = result[:limit]
-        next_cursor = f"{page[-1]['schoolYear']}|{page[-1]['dbn']}" if len(result) > limit else None
+        next_cursor = f"{page[-1]['borough']}|{page[-1]['dbn']}|{page[-1]['schoolYear']}" if len(result) > limit else None
         return {'statusCode': 200, 'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'}, 'body': json.dumps({'schools': page, 'total': total, 'nextCursor': next_cursor, 'hasMore': next_cursor is not None})}
     except Exception as error:
         return {'statusCode': 502, 'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'}, 'body': json.dumps({'error': str(error)})}

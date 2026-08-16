@@ -8,6 +8,7 @@ function queryParams() {
   const params = new URLSearchParams({ limit: '100', signal: $('signal').value });
   if (state.gapThreshold !== 'all') params.set('gap', state.gapThreshold);
   if ($('year').value) params.set('year', $('year').value);
+  else params.set('directory', 'latest');
   if ($('borough').value) params.set('borough', $('borough').value);
   if (state.cursor) params.set('cursor', state.cursor);
   return params;
@@ -105,4 +106,7 @@ $('signal').onchange = () => { resetGapControls(); loadPage(true); };
 $('queue').addEventListener('scroll', (event) => { const element = event.currentTarget; if (element.scrollTop + element.clientHeight >= element.scrollHeight - 80) loadPage(); });
 ensureGapControls();
 ensureTabletLayout();
-loadMetadata().catch(() => {}).finally(() => loadPage(!initialCursor));
+loadMetadata().then(() => loadPage(!initialCursor)).catch((error) => {
+  $('status').textContent = `Unable to load school-year options: ${error.message}`;
+  $('queue').innerHTML = '<p class="empty">School-year options are unavailable.</p>';
+});

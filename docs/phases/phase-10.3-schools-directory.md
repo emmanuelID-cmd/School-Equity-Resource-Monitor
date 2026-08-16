@@ -8,7 +8,7 @@ Make school discovery clear and non-repetitive before a user enters a full Schoo
 
 - Present one directory record per DBN.
 - Order schools by borough: Brooklyn, Bronx, Manhattan, Queens, Staten Island; then DBN ascending.
-- Display the latest year with comparison-capable evidence where one exists; otherwise retain the school using its latest raw record.
+- Use the shared latest-record API to display the latest year with comparison-capable evidence where one exists; otherwise retain the school using its latest raw record.
 - Open the School Equity Profile at the displayed year.
 - Keep school-specific historical year selection inside the full profile.
 
