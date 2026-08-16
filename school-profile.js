@@ -42,27 +42,35 @@ function loadProfile() {
   return fetch(`/api/profile?dbn=${encodeURIComponent(dbn)}&school_year=${encodeURIComponent(selectedYear)}`).then((response) => { if (!response.ok) throw Error(response.status === 404 ? 'School profile not found for this school year.' : `API ${response.status}`); return response.json(); }).then(showProfile);
 }
 
+async function loadLatestProfile() {
+  const response = await fetch(`/api/portfolio?directory=latest&dbn=${encodeURIComponent(dbn)}&limit=1`);
+  if (!response.ok) throw Error(`Portfolio API ${response.status}`);
+  const data = await response.json();
+  const latestYear = data.schools?.[0]?.schoolYear;
+  if (!latestYear) throw Error('School not found in available evidence records.');
+  location.replace(`schools.html?dbn=${encodeURIComponent(dbn)}&school_year=${encodeURIComponent(latestYear)}`);
+}
+
 function loadDirectory() {
   let schools = [];
   let cursor = null;
   let hasMore = true;
   let loading = false;
   let total = 0;
-  const yearOptions = ['2015','2016','2017','2018','2019','2020','2021','2022'].map((year) => `<option>${year}</option>`).join('');
-  target.innerHTML = '<div class="schools-toolbar"><label for="school-search">Search DBN or School Name</label><input id="school-search" type="search" placeholder="e.g. 01M292 or Orchard"><label for="school-borough">Borough</label><select id="school-borough"><option value="">All boroughs</option><option>Bronx</option><option>Brooklyn</option><option>Manhattan</option><option>Queens</option><option>Staten Island</option></select><label for="school-year">School Year</label><select id="school-year"><option value="">All years</option>' + yearOptions + '</select></div><div id="school-list" class="schools-list"></div>';
+  target.innerHTML = '<div class="schools-toolbar"><label for="school-search">Search DBN or School Name</label><input id="school-search" type="search" placeholder="e.g. 01M292 or Orchard"><label for="school-borough">Borough</label><select id="school-borough"><option value="">All boroughs</option><option>Brooklyn</option><option>Bronx</option><option>Manhattan</option><option>Queens</option><option>Staten Island</option></select></div><div id="school-list" class="schools-list"></div>';
   const list = document.getElementById('school-list');
   const render = () => { const term = document.getElementById('school-search').value.toLowerCase(); const boroughControl = document.getElementById('school-borough'); const borough = boroughControl.disabled ? '' : boroughControl.value; const matches = schools.filter((school) => `${school.dbn} ${school.schoolName || ''}`.toLowerCase().includes(term) && (!borough || school.borough === borough)); list.innerHTML = matches.map((school) => `<a class="queue-item" href="schools.html?dbn=${encodeURIComponent(school.dbn)}&school_year=${encodeURIComponent(school.schoolYear)}"><strong>${esc(school.dbn)}</strong><span>${esc(school.schoolName || 'School name unavailable')} · ${esc(school.borough)} · ${esc(school.schoolYear)}</span></a>`).join('') || '<p class="empty">No schools match your filters.</p>'; };
-  const loadPage = (reset = false) => { if (loading || (!hasMore && !reset)) return; if (reset) { schools.length = 0; cursor = null; hasMore = true; total = 0; } loading = true; const query = new URLSearchParams({limit:'100'}); const boroughControl = document.getElementById('school-borough'); const borough = boroughControl.disabled ? '' : boroughControl.value; const year = document.getElementById('school-year').value; const searchValue = document.getElementById('school-search').value.trim(); if (borough) query.set('borough', borough); if (year) query.set('year', year); if (/^\d{2}[A-Za-z]\d{3}$/.test(searchValue)) query.set('dbn', searchValue.toUpperCase()); else if (searchValue) query.set('school_name', searchValue); if (cursor) query.set('cursor', cursor); fetch(`/api/portfolio?${query}`).then((response) => response.json()).then((body) => { schools.push(...(body.schools || [])); total = Number(body.total || 0); cursor = body.nextCursor; hasMore = Boolean(body.hasMore); render(); status.textContent = `${schools.length.toLocaleString()} of ${total.toLocaleString()} schools. Search by DBN, School Name, Borough, or School Year.`; }).catch((error) => { status.textContent = `Unable to load schools: ${error.message}`; }).finally(() => { loading = false; }); };
+  const loadPage = (reset = false) => { if (loading || (!hasMore && !reset)) return; if (reset) { schools.length = 0; cursor = null; hasMore = true; total = 0; } loading = true; const query = new URLSearchParams({limit:'100', directory:'latest'}); const boroughControl = document.getElementById('school-borough'); const borough = boroughControl.disabled ? '' : boroughControl.value; const searchValue = document.getElementById('school-search').value.trim(); if (borough) query.set('borough', borough); if (/^\d{2}[A-Za-z]\d{3}$/.test(searchValue)) query.set('dbn', searchValue.toUpperCase()); else if (searchValue) query.set('school_name', searchValue); if (cursor) query.set('cursor', cursor); fetch(`/api/portfolio?${query}`).then((response) => response.json()).then((body) => { schools.push(...(body.schools || [])); total = Number(body.total || 0); cursor = body.nextCursor; hasMore = Boolean(body.hasMore); render(); status.textContent = `${schools.length.toLocaleString()} of ${total.toLocaleString()} schools. Schools are shown at their latest comparable evidence year when available. Search by DBN, School Name, or Borough.`; }).catch((error) => { status.textContent = `Unable to load schools: ${error.message}`; }).finally(() => { loading = false; }); };
   const search = document.getElementById('school-search');
   const boroughControl = document.getElementById('school-borough');
   const updateSearchMode = () => { const isDbn = /^\d{2}[A-Za-z]\d{3}$/.test(search.value.trim()); boroughControl.disabled = isDbn; boroughControl.setAttribute('aria-describedby', 'school-search-help'); document.getElementById('school-search-help').textContent = isDbn ? 'DBN search active — Borough filter is not applied.' : 'Search by DBN or school name.'; render(); };
   search.insertAdjacentHTML('afterend', '<p id="school-search-help" class="field-help">Search by DBN or school name.</p>');
   search.addEventListener('input', () => { updateSearchMode(); if (search.value.trim()) loadPage(true); });
   document.getElementById('school-borough').addEventListener('change', () => loadPage(true));
-  document.getElementById('school-year').addEventListener('change', () => loadPage(true));
   list.addEventListener('scroll', () => { if (list.scrollTop + list.clientHeight >= list.scrollHeight - 80) loadPage(); });
   loadPage();
 }
 
 if (dbn && selectedYear) loadProfile().catch((error) => { status.textContent = `Unable to load profile: ${error.message}`; target.innerHTML = '<p class="empty">Check the DBN and school year, then try again.</p>'; });
+else if (dbn) loadLatestProfile().catch((error) => { status.textContent = `Unable to load profile: ${error.message}`; target.innerHTML = '<p class="empty">Check the DBN, then try again.</p>'; });
 else loadDirectory();
