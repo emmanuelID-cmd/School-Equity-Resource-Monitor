@@ -30,7 +30,8 @@ def profile_response(request):
         elif graduation.get('denominator') is not None and graduation['denominator'] < 10: warnings.add('Graduation denominator below 10')
         if demographic not in by_demographic: warnings.add(f'{demographic} demographic record unavailable for this school year')
         demographics.append({'demographic': demographic, 'attendance90': attendance, 'graduation4': graduation.get('value'), 'attendanceDenominator': pair.get('denominator'), 'graduationDenominator': graduation.get('denominator'), 'gap': abs(graduation['value'] - attendance) if attendance is not None and graduation.get('value') is not None else None})
-    body = {'dbn': dbn, 'schoolName': first.get('schoolName'), 'borough': first.get('borough'), 'schoolYear': school_year, 'demographics': demographics, 'matchedRecordCount': sum(1 for item in demographics if item['gap'] is not None), 'warnings': sorted(warnings)}
+    available_years = sorted({str(pair.get('schoolYear')) for pair in _load_pairs() if pair.get('dbn') == dbn}, key=int, reverse=True)
+    body = {'dbn': dbn, 'schoolName': first.get('schoolName'), 'borough': first.get('borough'), 'schoolYear': school_year, 'availableYears': available_years, 'demographics': demographics, 'matchedRecordCount': sum(1 for item in demographics if item['gap'] is not None), 'warnings': sorted(warnings)}
     return {'statusCode': 200, 'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'}, 'body': json.dumps(body)}
 
 
